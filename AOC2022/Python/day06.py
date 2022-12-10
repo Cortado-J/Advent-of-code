@@ -1,5 +1,5 @@
 day = 6
-input = open('input' + str(day) + '.txt').read()
+input = open(f"input{day:02d}.txt").read()
 # input="bvwbjplbgvbhsrlpgdmjqwftvncz"
 
 def start(length):
@@ -8,5 +8,7 @@ def start(length):
         if len(set(s)) == length:
             return (i + 1)
 
-print(start(4))
-print(start(14))
+parta = start(4)
+partb = start(14)
+print(f"Day {day}: Part A = {parta}")
+print(f"Day {day}: Part B = {partb}")

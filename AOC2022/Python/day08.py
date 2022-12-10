@@ -1,5 +1,5 @@
 day = 8
-input = open('input'+str(day)+'.txt').read().splitlines()
+input = open(f"input{day:02d}.txt").read().splitlines()
 size = len(input)
 
 def h(pos):
@@ -50,5 +50,5 @@ for x in range(size):
         if vis(pos):
             parta += 1
         partb = max(partb, scenic(pos))
-print("Part A:", parta)
-print("Part B:", partb)
+print(f"Day {day}: Part A = {parta}")
+print(f"Day {day}: Part B = {partb}")

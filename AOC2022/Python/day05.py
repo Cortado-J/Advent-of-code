@@ -1,5 +1,5 @@
 day = 5
-sections = open('input' + str(day) + '.txt').read().split('\n\n')
+sections = open(f"input{day:02d}.txt").read().split('\n\n')
 inputstacks = sections[0].splitlines()
 moves = sections[1].splitlines()
 
@@ -27,8 +27,7 @@ for line in moves:
     t = int(bits[5])
     multimove(f, t, m)
 
-parta = [s[-1] for s in stacks]
-print(''.join(parta))
+parta = ''.join([s[-1] for s in stacks])
 
 stacks = copy.deepcopy(keepstacks)
 stacks.append(list())  # stack 10
@@ -40,5 +39,7 @@ for line in moves:
     multimove(f, 10, m)
     multimove(10, t, m)
 
-partb = [s[-1] for s in stacks[0:9]]
-print(''.join(partb))
+partb = ''.join([s[-1] for s in stacks[0:9]])
+
+print(f"Day {day}: Part A = {parta}")
+print(f"Day {day}: Part B = {partb}")

@@ -1,5 +1,5 @@
 day = 7
-input = open('input'+str(day)+'.txt').read().splitlines()
+input = open(f"input{day:02d}.txt").read().splitlines()
 input.append("$ cd /")  # To ensure end for ls
 
 class Dir:
@@ -82,7 +82,7 @@ for d in root.dirlist():
     # print(d, d.size())
     if s < 100000:
         parta += s
-print("Part A:",parta)
+print(f"Day {day}: Part A = {parta}")
 
 outersize = root.size()
 disksize = 70000000
@@ -95,4 +95,6 @@ for d in root.dirlist():
     s = d.size()
     if s < best and s >= needtofree:
         best = s
-print("Part B:",best)
+partb = best
+
+print(f"Day {day}: Part B = {partb}")

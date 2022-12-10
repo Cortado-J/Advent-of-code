@@ -1,5 +1,5 @@
 day = 4
-lines = open('input'+str(day)+'.txt').read().splitlines()
+lines = open(f"input{day:02d}.txt").read().splitlines()
 
 ta = 0
 tb = 0
@@ -16,5 +16,5 @@ for line in lines:
     if max(ab, bb) <= min(ae, be):
         tb += 1
 
-print("Part a=", ta)
-print("Part b=", tb)
+print(f"Day {day}: Part A = {ta}")
+print(f"Day {day}: Part B = {tb}")

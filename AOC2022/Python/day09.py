@@ -1,5 +1,5 @@
 day = 9
-input = open('input'+str(day)+'.txt').read().splitlines()
+input = open(f"input{day:02d}.txt").read().splitlines()
 
 length = 10
 xs = [0 for _ in range(length)]
@@ -82,5 +82,5 @@ for line in input:
 
 parta = len(visiteda)
 partb = len(visitedb)
-print("Part A", parta)
-print("Part B", partb)
+print(f"Day {day}: Part A = {parta}")
+print(f"Day {day}: Part B = {partb}")
