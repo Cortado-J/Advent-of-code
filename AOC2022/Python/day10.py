@@ -25,7 +25,7 @@ def ss(cyc):
 parta=ss(20)+ss(60)+ss(100)+ss(140)+ss(180)+ss(220)
 print("Part A = ", parta)
 
-display = ["#" if abs(sig[pix]-pix % 40) <= 1 else '.' for pix in range(40*6)]
+display = ["#" if abs(sig[pix]-pix % 40) <= 1 else ' ' for pix in range(40*6)]
 
 prep = ''.join(display)
 for row in range(6):
