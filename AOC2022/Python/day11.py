@@ -1,27 +1,24 @@
 day = 11
 inp = open(f"input{day:02d}.txt").read().split('\n\n')
 
+
 class Monkey:
     def __init__(self, lines):
         lines = lines.splitlines()
         # Monkey 0:
         # Starting items: 57, 58
-        self.items = []
-        for x in lines[1].split(' ')[4:]:
-            if x[-1] == ',':
-                x = x[0:-1]
-            self.items.append(int(x))
+        self.items = [int(x.replace(',', '')) for x in lines[1].split(' ')[4:]]
 
         # Operation: new = old * 19
-        op = lines[2].split(' ')[-2]
-
-        # Test: divisible by 7
         fact = lines[2].split(' ')[-1]
+        op   = lines[2].split(' ')[-2]
         if fact == 'old':
             fact = '2'
-            op = 'pow'
+            op   = 'pow'
         self.factor = int(fact)
         self.op = op
+
+        # Test: divisible by 7
         self.div = int(lines[3].split(' ')[-1])
 
         #   If true: throw to monkey 2
