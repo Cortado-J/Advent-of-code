@@ -1,5 +1,3 @@
-import numpy as np
-
 day = 11
 inp = open(f"input{day:02d}.txt").read().split('\n\n')
 
