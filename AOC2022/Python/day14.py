@@ -20,7 +20,7 @@ def rockline(a, b):
         for x in range(x1, x2 + 1):
             cave.add((x, y))
 
-def caverocks()
+def caverocks():
     for line in lines:
         points = line.split(' -> ')
         lastpos = None
