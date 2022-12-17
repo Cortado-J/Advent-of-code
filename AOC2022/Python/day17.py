@@ -107,11 +107,10 @@ while parta is None or partb is None:
             # c) Last n rows (lets start with n = 3)
             recent = (jetindex, nextrock, hash(cave[-1-lastn:-1]))
             if recent in history:
-                repeatedrock = history[recent]
-                startofcycle = repeatedrock
-                cyclelen = rock - repeatedrock
-                heightatstartofcylce = heights[repeatedrock]
-                heightgainedinacycle = towerheight()-heights[repeatedrock]
+                startofcycle = history[recent]
+                cyclelen = rock - startofcycle
+                heightatstartofcylce = heights[startofcycle]
+                heightgainedinacycle = towerheight()-heights[startofcycle]
                 totalrocks = 1000000000000
                 rocksdone = rock+1
                 rockstogo = totalrocks - rocksdone
