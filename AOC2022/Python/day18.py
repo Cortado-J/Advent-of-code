@@ -79,25 +79,25 @@ for x in range(0,21):
                     na = getarea(hash(n))
                     if na is not None:
                         areasofneighbours.add(na)
-                # Now areasofneighbours is an array of arrays of the current cube
+                # Now areasofneighbours is an array of neighbours of the current cube
                 if len(areasofneighbours) == 0:
                     # We need to create a new area:
                     newarea = set()
                     newarea.add(hp)
                     areas.append(newarea)
                 else:
-                    # We have one or more joined areas so first lets remove duplicates:
+                    # We have one or more joined areas:
                     alist = list(areasofneighbours)
-                    # Add base point to first area:
+                    # Add the point to the first area:
                     ato = alist[0]
                     areas[ato].add(hp)
-                    if len(alist) > 1: # Because if just one then we've added the point to the area nad no more to do!
-                        # We have multiple different areas so we can join them together
-                        for afrom in alist[1:]: # Loop over additional area
+                    if len(alist) > 1: # and if there's any more areas connected to the cube
+                        # We want to join them into one bigger area so transfer them all into the first area
+                        for afrom in alist[1:]: # Loop over additional areas
                             for newpoint in areas[afrom]:
                                 # Transferring points to new area
                                 areas[ato].add(newpoint)
-                            areas[afrom] = set() # Make old area empty
+                            areas[afrom] = set() # Make old area empty (We could be tidy and remove them but hey!)
 
 outside = areas[getarea(hash((20,20,20)))]
 volumeofinsides = 0
