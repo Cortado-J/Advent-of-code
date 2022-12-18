@@ -28,15 +28,6 @@ parta = 6 * num - covered
 print(f"Day {day}: Part A = {parta}")
 
 
-def minmax(dim):
-    print(f"min of {'xyz'[dim]} is {min([p[dim] for p in cubes])}")
-    print(f"max of {'xyz'[dim]} is {max([p[dim] for p in cubes])}")
-
-
-minmax(0)
-minmax(1)
-minmax(2)
-
 # Array of sets each of which is a joined area
 areas = []
 
@@ -48,10 +39,6 @@ def hash(p):
 def unhash(h):
     result = (h // 10000, (h // 100) % 100, h % 100)
     return result
-
-
-def has(p, area):
-    return hash(p) in area
 
 
 def touchings(area):
@@ -122,7 +109,7 @@ for index, area in enumerate(areas):
         volumeofinsides += len(area)
         touch = touchings(area)
         touchingsofinsides += touch
-        print(f"Area {index} has volume {len(area)} and touchings {touch}.  Area is: {area}")
+        # print(f"Area {index} has volume {len(area)} and touchings {touch}.  Area is: {area}")
 
 partb = parta - volumeofinsides * 6 + touchingsofinsides * 2
 print(f"Day {day}: Part B = {partb}")
