@@ -44,7 +44,6 @@ def evaluate(m, yell):
 
 parta = int(evaluate('root', None))
 print(f"Day {day}: Part A = {parta}")
-
 jobs['root'] = jobs['root'].replace('+', '-')
 
 
