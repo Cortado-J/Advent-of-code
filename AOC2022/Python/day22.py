@@ -1,13 +1,11 @@
 import os
+
 day = int(os.path.basename(__file__)[-5:-3])
 filename = f"input{day:02d}.txt"
 lines = open(filename).read().splitlines()
 
 cave = {}
-moves = lines[-1] + 'X'
-path = {}
-print(moves)
-
+moves = lines[-1] + 'X'  # Add X to ensure last character of "moves" gets processed
 cavesize = 10000
 maxwidth = 0
 for row, line in enumerate(lines[:-2]):
@@ -18,29 +16,33 @@ for row, line in enumerate(lines[:-2]):
             cave[(row, col)] = ch
             mincol = min(mincol, col)
             maxcol = max(maxcol, col)
-    rowwidth = maxcol-mincol+1
+    rowwidth = maxcol - mincol + 1
     cavesize = min(cavesize, rowwidth)
-    maxwidth = max(maxwidth,len(line))
+    maxwidth = max(maxwidth, len(line))
 print("cavesize=", cavesize)
+
 
 def showcave(pos):
     print("==============================")
     for row in range(len(lines[:-2])):
         for col in range(maxwidth):
-            if not (row,col) in cave:
+            if not (row, col) in cave:
                 print('~', end='')
             elif row == pos[0] and col == pos[1]:
                 print('X', end='')
             else:
-                print(cave[(row,col)], end='')
+                print(cave[(row, col)], end='')
         print()
+
 
 # Position is a tuple: (row,col)
 # Facing is 0 for right (>), 1 for down (v), 2 for left (<), and 3 for up (^).
-directions = [(0,1), (1,0), (0,-1), (-1,0)]
+directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
 
 def open(pos):
     return pos in cave and cave[pos] == '.'
+
 
 def forward(row, col, n, face, cube):
     newface = None
@@ -49,13 +51,13 @@ def forward(row, col, n, face, cube):
     currentface = face
     for _ in range(n):
         dr, dc = directions[currentface]
-        propose = (currentrow+dr, currentcol+dc)
+        propose = (currentrow + dr, currentcol + dc)
         if propose not in cave:
             if not cube:
                 # Part A
-                propose = (propose[0]-300*dr, propose[1]-300*dc)
+                propose = (propose[0] - 300 * dr, propose[1] - 300 * dc)
                 while propose not in cave:
-                    propose = (propose[0]+dr, propose[1]+dc)
+                    propose = (propose[0] + dr, propose[1] + dc)
             else:
                 # Part B
                 r = propose[0]
@@ -66,52 +68,41 @@ def forward(row, col, n, face, cube):
                 cuber = r // cavesize
                 cubec = c // cavesize
                 if cavesize == 50:
-                    if   cuber == -1 and cubec ==  1 and currentface == 3: rr, cc, newface = c+100, 0, 0
-                    elif cuber ==  3 and cubec == -1 and currentface == 2: rr, cc, newface = 0, r-100, 1
-
-                    elif cuber == -1 and cubec ==  2 and currentface == 3: rr, cc, newface = 199, c-100, 3
-                    elif cuber ==  4 and cubec ==  0 and currentface == 1: rr, cc, newface = 0, c+100, 1
-
-                    elif cuber ==  0 and cubec ==  0 and currentface == 2: rr, cc, newface = 149-r, 0, 0
-                    elif cuber ==  2 and cubec == -1 and currentface == 2: rr, cc, newface = 149-r, 50, 0
-
-                    elif cuber ==  0 and cubec ==  3 and currentface == 0: rr, cc, newface = 149-r, 99, 2
-                    elif cuber ==  2 and cubec ==  2 and currentface == 0: rr, cc, newface = 149-r, 149, 2
-
-                    elif cuber ==  1 and cubec ==  0 and currentface == 2: rr, cc, newface = 100, r-50, 1
-                    elif cuber ==  1 and cubec ==  0 and currentface == 3: rr, cc, newface = c+50, 50, 0
-
-                    elif cuber ==  1 and cubec ==  2 and currentface == 0: rr, cc, newface = 49, r+50, 3
-                    elif cuber ==  1 and cubec ==  2 and currentface == 1: rr, cc, newface = c-50, 99, 2
-
-                    elif cuber ==  3 and cubec ==  1 and currentface == 0: rr, cc, newface = 149, r-100, 3
-                    elif cuber ==  3 and cubec ==  1 and currentface == 1: rr, cc, newface = c+100, 49, 2
+                    if   cuber == -1 and cubec ==  1 and currentface == 3: rr, cc, newface = c + 100, 0, 0
+                    elif cuber ==  3 and cubec == -1 and currentface == 2: rr, cc, newface = 0, r - 100, 1
+                    elif cuber == -1 and cubec ==  2 and currentface == 3: rr, cc, newface = 199, c - 100, 3
+                    elif cuber ==  4 and cubec ==  0 and currentface == 1: rr, cc, newface = 0, c + 100, 1
+                    elif cuber ==  0 and cubec ==  0 and currentface == 2: rr, cc, newface = 149 - r, 0, 0
+                    elif cuber ==  2 and cubec == -1 and currentface == 2: rr, cc, newface = 149 - r, 50, 0
+                    elif cuber ==  0 and cubec ==  3 and currentface == 0: rr, cc, newface = 149 - r, 99, 2
+                    elif cuber ==  2 and cubec ==  2 and currentface == 0: rr, cc, newface = 149 - r, 149, 2
+                    elif cuber ==  1 and cubec ==  0 and currentface == 2: rr, cc, newface = 100, r - 50, 1
+                    elif cuber ==  1 and cubec ==  0 and currentface == 3: rr, cc, newface = c + 50, 50, 0
+                    elif cuber ==  1 and cubec ==  2 and currentface == 0: rr, cc, newface = 49, r + 50, 3
+                    elif cuber ==  1 and cubec ==  2 and currentface == 1: rr, cc, newface = c - 50, 99, 2
+                    elif cuber ==  3 and cubec ==  1 and currentface == 0: rr, cc, newface = 149, r - 100, 3
+                    elif cuber ==  3 and cubec ==  1 and currentface == 1: rr, cc, newface = c + 100, 49, 2
                     else:
                         assert False, f"Unrecognised combo: r={r} c={c} (cuber={cuber} cubec={cubec}) currentface={currentface} (propose={propose})"
                 else:
-                    if   cuber == -1 and cubec ==  2 and currentface == 3: rr, cc, newface = 4, 11-c, 1
-                    elif cuber ==  0 and cubec ==  0 and currentface == 3: rr, cc, newface = 0, 11-c, 1
-
-                    elif cuber ==  0 and cubec ==  1 and currentface == 2: rr, cc, newface = 4, r+4, 1
-                    elif cuber ==  0 and cubec ==  1 and currentface == 3: rr, cc, newface = c-4, 8, 0
-
-                    elif cuber ==  0 and cubec ==  3 and currentface == 0: rr, cc, newface = 11-r, 15, 2
-                    elif cuber ==  2 and cubec ==  4 and currentface == 0: rr, cc, newface = 11-r, 11, 2
-
-                    elif cuber ==  1 and cubec == -1 and currentface == 2: rr, cc, newface = 11, 19-r, 3
-                    elif cuber ==  3 and cubec ==  3 and currentface == 1: rr, cc, newface = 19-c, 0, 0
-
-                    elif cuber ==  1 and cubec ==  3 and currentface == 0: rr, cc, newface = 8, 19-r, 1
-                    elif cuber ==  1 and cubec ==  3 and currentface == 3: rr, cc, newface = 19-c, 11, 2
-
-                    elif cuber ==  2 and cubec ==  0 and currentface == 1: rr, cc, newface = 11, 11-c, 3
-                    elif cuber ==  3 and cubec ==  2 and currentface == 1: rr, cc, newface = 7, 11-c, 3
-
-                    elif cuber ==  2 and cubec ==  1 and currentface == 1: rr, cc, newface = 15-c, 8, 0
-                    elif cuber ==  2 and cubec ==  1 and currentface == 2: rr, cc, newface = 7, 15-r, 3
+                    if  cuber == -1 and cubec ==  2 and currentface == 3: rr, cc, newface = 4, 11 - c, 1
+                    elif cuber == 0 and cubec ==  0 and currentface == 3: rr, cc, newface = 0, 11 - c, 1
+                    elif cuber == 0 and cubec ==  1 and currentface == 2: rr, cc, newface = 4, r + 4, 1
+                    elif cuber == 0 and cubec ==  1 and currentface == 3: rr, cc, newface = c - 4, 8, 0
+                    elif cuber == 0 and cubec ==  3 and currentface == 0: rr, cc, newface = 11 - r, 15, 2
+                    elif cuber == 2 and cubec ==  4 and currentface == 0: rr, cc, newface = 11 - r, 11, 2
+                    elif cuber == 1 and cubec == -1 and currentface == 2: rr, cc, newface = 11, 19 - r, 3
+                    elif cuber == 3 and cubec ==  3 and currentface == 1: rr, cc, newface = 19 - c, 0, 0
+                    elif cuber == 1 and cubec ==  3 and currentface == 0: rr, cc, newface = 8, 19 - r, 1
+                    elif cuber == 1 and cubec ==  3 and currentface == 3: rr, cc, newface = 19 - c, 11, 2
+                    elif cuber == 2 and cubec ==  0 and currentface == 1: rr, cc, newface = 11, 11 - c, 3
+                    elif cuber == 3 and cubec ==  2 and currentface == 1: rr, cc, newface = 7, 11 - c, 3
+                    elif cuber == 2 and cubec ==  1 and currentface == 1: rr, cc, newface = 15 - c, 8, 0
+                    elif cuber == 2 and cubec ==  1 and currentface == 2: rr, cc, newface = 7, 15 - r, 3
                     else:
                         assert False, f"Unrecognised combo: r={r} c={c} (cuber={cuber} cubec={cubec}) currentface={currentface} (propose={propose})"
-                print(f"Elf at ({currentrow},{currentcol}) moving {'>v<^'[currentface]} to ({r},{c}) (propose={(r,c)}) but over edge so instead propose ({rr},{cc}) moving {'>v<^'[newface]}")
+                print(
+                    f"Elf at ({currentrow},{currentcol}) moving {'>v<^'[currentface]} to ({r},{c}) (propose={(r, c)}) but over edge so instead propose ({rr},{cc}) moving {'>v<^'[newface]}")
                 propose = (rr, cc)
         if not open(propose):
             break
@@ -119,6 +110,7 @@ def forward(row, col, n, face, cube):
         if newface is not None:
             currentface = newface
     return currentrow, currentcol, currentface
+
 
 def solve(cube):
     # Initially, you are facing to the right (from the perspective of how the map is drawn).
@@ -135,11 +127,11 @@ def solve(cube):
     col = 0
     while not open((row, col)):
         col += 1
-    print(f"Starting at row:{row}, col:{col}")
+    # print(f"Starting at row:{row}, col:{col}")
 
     number = 0
-    showcave((row, col))
-    for i in range(len(moves)): # Rounds
+    # showcave((row, col))
+    for i in range(len(moves)):  # Rounds
         m = moves[i]
         if m.isnumeric():
             number = number * 10 + int(moves[i])
@@ -159,6 +151,7 @@ def solve(cube):
     # The final password is the sum of 1000 times the row, 4 times the column, and the facing.
     password = (row + 1) * 1000 + (col + 1) * 4 + facing
     return password
+
 
 parta = solve(False)
 print(f"Day {day}: Part A = {parta}")
